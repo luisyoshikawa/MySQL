@@ -1,0 +1,88 @@
+create DATABASE biblioteca;
+
+USE biblioteca;
+
+CREATE TABLE cliente(
+    codcli int PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(150),
+    rg varchar(150) UNIQUE,
+    cpf varchar(150) UNIQUE,
+    nascimento date,
+    email varchar(150) UNIQUE,
+    telefone varchar(150));
+
+CREATE TABLE bibliotecario(
+    codBiblio int PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(150),
+    rg varchar(150) UNIQUE,
+    cpf varchar(150) UNIQUE,
+    nascimento date,
+    email varchar(150) UNIQUE,
+    telefone varchar(150),
+    logradouro varchar(150),
+    num int,
+    complemento varchar(150),
+    bairro varchar(150),
+    cidade varchar(150),
+    uf char(2),
+    cep int);
+
+CREATE TABLE livro(
+    codLi int PRIMARY KEY AUTO_INCREMENT,
+    tituro varchar(150),
+    autor varchar(150),
+    editora varchar(150),
+    genero varchar(150));
+
+CREATE TABLE empdev(
+    codemp int PRIMARY KEY AUTO_INCREMENT,
+    datadevolucao date,
+    dataemprestimo date,
+    codBiblio int,
+    codcli int,
+    codLi int,
+    FOREIGN KEY(codBiblio) REFERENCES bibliotecario(codBiblio),
+    FOREIGN KEY(codcli) REFERENCES cliente(codcli),
+    FOREIGN KEY(codLi) REFERENCES livro(codLi));
+
+INSERT INTO cliente (nome, nascimento, email, telefone) VALUES
+('Luis Yoshikawa', '2003-11-10', 'luisfelipeyoshi@gmail.com', '11-98558-5267'),
+('Ana Thomazini', '2004-06-10', 'ana.andrade185@etec.sp.gov.br', '11-99535-1342'),
+('Kaua Maia', '2003-10-30', 'kiwaplayer22@gmail.com', '11-99525-1242'),
+('Cintia Pinho', '2000-04-10', 'cintia.pinho@etec.sp.gov.br', '11-95335-1535'),
+('Anderson Vanin', '1998-05-17', 'anderson.vanini@etec.sp.gov.br', '11-94325-1342'),
+('Gustavo Santos', '2002-08-18', 'gustavo.santos@etec.sp.gov.br', '11-99435-1532'),
+('Yuri Leal', '2001-07-16', 'yuri.leal@etec.sp.gov.br', '11-92535-1234'),
+('Geomario Yoshikawa', '1975-06-22', 'dr.geomario@hotmail.com', '11-92345-3245'),
+('Gislaine Tavares', '1985-01-16', 'gislainetavares@hotmail.com', '11-92345-1431'),
+('Luiza Fernandes', '2004-06-25', 'luiza.fernades@etec.sp.gov.br', '11-94215-5231');
+
+INSERT INTO livro(tituro, autor, genero, editora) VALUES
+('Anna Kariênina', 'Lev Tolstói', 'suspense','companhia das letras'),
+('Madame Bovary', 'Gustave Flaubert', 'romance','Eleanor Marx'),
+('Lolita', 'Vladímir Nabókov', 'romance','Olympia Press'),
+('As Aventuras de Huckleberry Finn', 'Mark Twain', 'romance','Chatto & Windus'),
+('Hamlet', 'William Shakespeare', 'Drama','Royal Shakespeare Company'),
+('O Grande Gatsby', 'F. Scott Fitzgerald', 'romance','Leya'),
+('Em Busca do Tempo Perdido', 'Marcel Proust', 'literatura moderna','Bernard Grasset'),
+('As Histórias de Tchekhov', 'Anton Tchekhov', 'drama','CosacNaify'),
+('Middlemarch', 'George Eliot', 'Romance','Blackwood'),
+('Por que fazemos o que fazemos?', 'Mario Sergio Cortella', 'Filosofia','Planeta');
+
+INSERT into bibliotecario (nome, rg, cpf, nascimento, email, telefone, num, complemento, bairro, cidade, uf, cep, logradouro) VALUES
+('Arnaldo Santos Silva','43.432.543.7','543.645.976-08','1965-09-21','arnaldosilva@hotmail.com','97854-6745','1200','nenhum','Parque São Vicente','Mauá','SP','09371-250','Rua Bernardino de Campos'),
+('Cleber Marcos Duarte','63.653.765.6','654.553.345-07','1987-06-10','clebinhodudu@gmail.com','97854-2346','1000','nenhum','Fatima','Pouso Alegre','MG','37554-180','Rua Glycério Moraes Coutinho - lado par'),
+('Aline Cristina','77.777.777.7','543.123.534-06','1998-01-11','alinecris@hotmail.com','97634-4367','206','ap 30','Botafogo','Rio de Janeiro','RJ','22260-174','Travessa Alegria do Morro');
+
+INSERT INTO empdev(datadevolucao, dataemprestimo, codBiblio, codcli, codLi) VALUES
+('2020-01-17','2020-01-10',1,1,1),
+('2019-08-10','2019-08-03',2,2,2),
+('2018-10-20','2018-10-13',3,3,3),
+('2020-02-20','2020-02-13',1,4,4),
+('2020-05-31','2020-05-24',2,5,5),
+('2018-10-03','2018-09-26',3,6,6),
+('2010-05-20','2010-05-13',1,7,7),
+('2013-11-31','2013-11-24',2,8,8),
+('2017-08-03','2017-07-26',3,9,9),
+('2020-06-04','2020-05-29',1,10,10);
+
